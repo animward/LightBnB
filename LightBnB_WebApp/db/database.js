@@ -29,7 +29,7 @@ const getUserWithId = function (id) {
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function (user) {
-  user.id = users.length + 1; // use
+  user.id = users.length + 1;
   users.push(user);
   return Promise.resolve(user);
 };
@@ -54,11 +54,7 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function (options, limit = 10) {
-  const limitedProperties = {};
-  for (let i = 1; i <= limit; i++) {
-    limitedProperties[i] = properties[i];
-  }
-  return Promise.resolve(limitedProperties);
+  return Promise.resolve(properties.slice(0, limit));
 };
 
 /**
@@ -67,9 +63,8 @@ const getAllProperties = function (options, limit = 10) {
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function (property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
+  property.id = properties.length + 1;
+  properties.push(property);
   return Promise.resolve(property);
 };
 
@@ -81,3 +76,4 @@ module.exports = {
   getAllProperties,
   addProperty,
 };
+
