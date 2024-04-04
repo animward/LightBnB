@@ -1,16 +1,31 @@
 const properties = require("./json/properties.json");
 const users = require("./json/users.json");
 
-/// Users
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'development',
+  password: 'development',
+  host: 'localhost',
+  database: 'lightbnb',
+});
 
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
  * @return {Promise<{}>} A promise to the user.
  */
+
 const getUserWithEmail = function (email) {
-  const resolvedUser = users.find(user => user.email.toLowercase() === email.toLocaleLowerCase()); // refactor
-  return Promise.resolve(resolvedUser);
+  return pool.query(`
+    SELECT *
+    FROM users
+    WHERE email = $1;
+  `, [email.toLowerCase()])
+  .then(res => {
+    return res.rows[0];
+  })
+  .catch(err => console.error('Error executing query', err));
 };
 
 /**
@@ -19,8 +34,15 @@ const getUserWithEmail = function (email) {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
-  const resolvedUser = users.find(user => user.id === id); // refactor
-  return Promise.resolve(resolvedUser);
+  return pool.query(`
+    SELECT *
+    FROM users
+    WHERE id = $1;
+  `, [id])
+  .then(res => {
+    return res.rows[0];
+  })
+  .catch(err => console.error('Error executing query', err));
 };
 
 /**
@@ -29,9 +51,16 @@ const getUserWithId = function (id) {
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function (user) {
-  user.id = users.length + 1;
-  users.push(user);
-  return Promise.resolve(user);
+  const { name, email, password } = user;
+  return pool.query(`
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+  `, [name, email, password])
+  .then(res => {
+    return res.rows[0];
+  })
+  .catch(err => console.error('Error executing query', err));
 };
 
 /// Reservations
