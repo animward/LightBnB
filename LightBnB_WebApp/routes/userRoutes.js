@@ -1,3 +1,4 @@
+// LightBnB/LightBnB_WebApp/routes/userRoutes.js
 const express = require("express");
 const bcrypt = require("bcrypt");
 const database = require("../db/database");

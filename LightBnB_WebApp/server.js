@@ -1,3 +1,4 @@
+// LightBnB/server.js
 const path = require("path");
 const express = require("express");
 const cookieSession = require("cookie-session");
@@ -18,6 +19,10 @@ app.use(
 
 const apiRoutes = require("./routes/apiRoutes");
 const userRoutes = require("./routes/userRoutes");
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "LightBnB_WebApp", "public", "index.html"));
+});
 
 // /api/endpoints
 app.use("/api", apiRoutes);
