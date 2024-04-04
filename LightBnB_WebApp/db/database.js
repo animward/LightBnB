@@ -121,10 +121,6 @@ const getAllProperties = function (options, limit = 10) {
     LEFT JOIN property_reviews ON properties.id = property_id WHERE 1=1
   `;
 
-  if (options) {
-    queryString += `WHERE `;
-  }
-
   if (options.city) {
     queryParams.push(`%${options.city}%`);
     queryString += `city LIKE $${queryParams.length} `;
