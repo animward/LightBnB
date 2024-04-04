@@ -137,13 +137,14 @@ const getAllProperties = function (options, limit = 10) {
     queryString += `AND cost_per_night BETWEEN $${queryParams.length - 1} AND $${queryParams.length} `;
   }
 
+  queryString += `GROUP BY properies.id`;
+
   if (options.minimum_rating) {
     queryParams.push(options.minimum_rating);
     queryString += `HAVING AVG (property_reviews.rating) >= $${queryParams.length} `;
   }
 
   queryString += `
-    GROUP BY properties.id
     ORDER BY cost_per_night
     LIMIT $${queryParams.length + 1};
   `;
