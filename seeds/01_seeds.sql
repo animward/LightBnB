@@ -1,9 +1,9 @@
 -- insert data into the users table
-INSERT INTO users (first_name, last_name, email, password)
+INSERT INTO users (name, email, password)
 VALUES 
-  ('User1', 'Lastname1', 'user1@example.com', '123'),
-  ('User2', 'Lastname2', 'user2@example.com', '123'),
-  ('User3', 'Lastname3', 'user3@example.com', '123');
+  ('Eva Stanley', 'sebastianguerra@ymail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
+  ('Louisa Meyer', 'jacksonrose@hotmail.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'),
+  ('Dominic Parks', 'victoriablackwell@outlook.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.');
 
 -- insert data into the properties table
 INSERT INTO properties (owner_id, title, description, cost_per_night, number_of_bedrooms, number_of_bathrooms)
