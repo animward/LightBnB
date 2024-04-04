@@ -123,32 +123,23 @@ const getAllProperties = function (options, limit = 10) {
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `city LIKE $${queryParams.length} `;
+    queryString += `AND city LIKE $${queryParams.length} `;
   }
 
   if (options.owner_id) {
-    if (queryParams.length > 0) {
-      queryString += `AND `;
-    }
     queryParams.push(options.owner_id);
-    queryString += `owner_id = $${queryParams.length} `;
+    queryString += `AND owner_id = $${queryParams.length} `;
   }
 
   if (options.minimum_price_per_night && options.maximum_price_per_night) {
-    if (queryParams.length > 0) {
-      queryString += `AND `;
-    }
     queryParams.push(options.minimum_price_per_night * 100);
     queryParams.push(options.maximum_price_per_night * 100);
-    queryString += `cost_per_night BETWEEN $${queryParams.length - 1} AND $${queryParams.length} `;
+    queryString += `AND cost_per_night BETWEEN $${queryParams.length - 1} AND $${queryParams.length} `;
   }
 
   if (options.minimum_rating) {
-    if (queryParams.length > 0) {
-      queryString += `AND `;
-    }
     queryParams.push(options.minimum_rating);
-    queryString += `property_reviews.rating >= $${queryParams.length} `;
+    queryString += `AND property_reviews.rating >= $${queryParams.length} `;
   }
 
   queryString += `
@@ -157,6 +148,8 @@ const getAllProperties = function (options, limit = 10) {
     LIMIT $${queryParams.length + 1};
   `;
 
+  queryParams.push(limit);
+  
   console.log(queryString, queryParams);
 
   return pool.query(queryString, queryParams)
