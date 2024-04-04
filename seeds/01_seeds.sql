@@ -13,8 +13,8 @@ VALUES
   (2, 'Habit mix', 'description', 'https://images.pexels.com/photos/2080018/pexels-photo-2080018.jpeg?auto=compress&cs=tinysrgb&h=350', 'https://images.pexels.com/photos/2080018/pexels-photo-2080018.jpeg', 46058, 0, 5, 6, 'Canada', '1650 Hejto Center', 'Genwezuj', 'Newfoundland And Labrador', 44583, true);
 
 -- insert data into the reservations table
-INSERT INTO reservations (start_date, end_date, property_id, guest_id, number_of_guests)
+INSERT INTO reservations (start_date, end_date, property_id, guest_id)
 VALUES
-  ('2022-04-01', '2022-04-07', 1, 2, 3),
-  ('2022-05-15', '2022-05-20', 2, 3, 2),
-  ('2022-06-10', '2022-06-15', 3, 1, 4);
+  ('2018-09-11', '2018-09-26', 2, 3),
+  ('2019-01-04', '2019-02-01', 2, 2),
+  ('2023-10-01', '2023-10-14', 1, 3);
