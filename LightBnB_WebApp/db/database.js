@@ -9,13 +9,7 @@ const users = require("./json/users.json");
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function (email) {
-  let resolvedUser = null;
-  for (const userId in users) {
-    const user = users[userId];
-    if (user && user.email.toLowerCase() === email.toLowerCase()) {
-      resolvedUser = user;
-    }
-  }
+  const resolvedUser = users.find(user => user.email.toLowercase() === email.toLocaleLowerCase()); // refactor
   return Promise.resolve(resolvedUser);
 };
 
@@ -25,7 +19,8 @@ const getUserWithEmail = function (email) {
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function (id) {
-  return Promise.resolve(users[id]);
+  const resolvedUser = users.find(user => user.id === id); // refactor
+  return Promise.resolve(resolvedUser);
 };
 
 /**
@@ -34,9 +29,8 @@ const getUserWithId = function (id) {
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function (user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
+  user.id = users.length + 1; // use
+  users.push(user);
   return Promise.resolve(user);
 };
 
